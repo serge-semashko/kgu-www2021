@@ -347,14 +347,20 @@ function processFullData(fullData) {   //                        console.log('\n
     starttime = newtime;
     insatData = fullData;
 $.each($(".booster-table").find("div.int"), function () {
-        var o = $(this).data("id");
-        if (typeof o =="undefined") {return;}
-        $(this).html(fullData[o])
+//        var o = $(this).data("id");
+//        $(this).html('i'+fullData[o])
     }), $.each($(".booster-table").find("div.float"), function () {
-        var o = $(this).data("id");
+        var o = $(this).data("idb");
+        if (typeof o ==NaN) {return;}
         if (typeof o =="undefined") {return;}
-         
-        $(this).html(parseFloat(fullData[o]).toFixed(2));
+        if (typeof fullData[o] =="undefined") {return;}
+         let tmpa=parseFloat(fullData[o]).toFixed(2);
+          // console.log(o+'  = '+fullData[o]+' = '+tmpa+' '+typeof tmpa);
+        if ( (tmpa=='NaN')| (tmpa==NaN) ){
+        } else {
+                    $(this).html(tmpa);
+
+        }
     });
 
     return 0;

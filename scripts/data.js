@@ -17,6 +17,48 @@ var chartData2_1 = [];
 var chartData3_1 = [];
 var chartData2_2 = [];
 var chartData3_2 = [];
+var k1_alias = {
+    
+    "k1t11":'01LEC01CT011',
+    "k1t12": '01LEC01CT012',
+    "k1t13": '01LEC01CT013',
+    "k1t6": '01LEC02CT006',
+    "k1t7": '01LEC01CT007',
+    "k1t5": '01LEC02CT005',
+    "k1t3": '01LEC02CT003',
+    "k1t4": '01LEC02CT004',
+    "k1t1": '01LEC02CT001',
+    "k1t2": '01LEC02CT002',
+    "k1t8": '01LEC01CT008',
+    "k1t9": '01LEC01CT009',
+    "k1t10": '01LCM11CT001',
+//Температуры на БО1 kgu 1
+    "k1t181": '01LEC01CT181',
+    
+"k1t191": '01LEC01CT191',
+
+"k1t201": '01LEC02CT201',
+"k1t211": '01LEC02CT211',
+
+//Температуры на БО2 kgu 1
+"k1t182": '01LEC11CT181',
+"k1t192": '01LEC11CT191',
+"k1t202": '01LEC12CT201',
+"k1t212": '01LEC12CT211',
+//Обороты
+"k1td1": '01LMP01DS001',
+
+"k1td2": '01LMP02DS001',
+"k1td3": '01LMP03DS001',
+
+"k1pg": '01LMN01DS001',
+
+//Уровни
+"k1sbr": '01LCM11CL001',
+"k1vanna": '01LCM31CL001',
+"k1bo1": '01LCM21CL001',
+"k1bo2": '01LCM22CL001'
+};
 
 var graphs2 = [
     //select 0 пусковой
@@ -135,7 +177,7 @@ var graphs2 = [
             "bulletBorderThickness": 1,
             "hideBulletsCount": 1,
             "title": "T13",
-            "valueField": "k1t13",
+            "valueField": "01LEC01CT013",
             disableed: true,
             visible: false,
             "fillAlphas": 0
@@ -461,7 +503,7 @@ var graphs2_1 = [
             "bulletBorderThickness": 1,
             "hideBulletsCount": 1,
             "title": "T13",
-            "valueField": "k1t13",
+            "valueField": "01LEC01CT013",
             disableed: true,
             visible: false,
             "fillAlphas": 0
@@ -787,7 +829,7 @@ var graphs2_2 = [
             "bulletBorderThickness": 1,
             "hideBulletsCount": 1,
             "title": "T13",
-            "valueField": "k1t13",
+            "valueField": "01LEC01CT013",
             disableed: true,
             visible: false,
             "fillAlphas": 0
@@ -1892,6 +1934,44 @@ var graphs3_2 = [
         "fillAlphas": 0
     }, ],
 ];
+function swap(obj) {
+  const res = {};
+
+  Object.keys(obj).forEach(function(value) {
+    var key = obj[value];
+    res[key] = value;
+  });
+  return res;
+};
+//k1_alias = swap(k1_alias);
+//console.log(JSON.stringify(k1_alias));
+function setAlias(graphs2){
+    for (let i in graphs2){
+        console.log('i in graphs2 '+i)
+        for (let j in graphs2[i]){
+            console.log('j in graphs2[i] '+j)
+        for (let k in graphs2[i][j]){
+            console.log('k in graphs2[i][j] '+k)
+            if (k == "valueField"){
+                console.log(graphs2[i][j][k]) ;
+                if (graphs2[i][j][k] in k1_alias ){
+                    graphs2[i][j][k] = k1_alias[graphs2[i][j][k]];
+                    console.log('changed '+graphs2[i][j][k]) ;
+                }
+            }
+
+        }
+
+
+        }
+
+    }
+}
+setAlias(graphs2);
+setAlias(graphs2_1);
+setAlias(graphs2_2);
+
+console.log(JSON.stringify(graphs2));
 
 
 

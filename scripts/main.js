@@ -65,16 +65,81 @@ function spliceData(elName, elData) {
     }
 
     if (elData.length > needlen) {
-        elData.splice(0, elData.length - needlen)
+        elData.splice(0, elData.length - (needlen*2))
     }
 }
+function shrink_append_Hist(histData,newData,serlen){
+	if (histData.length==0) {
+		histData.push(newData);	
+		return;
+	}
+	if (serlen==0) serlen=120;
+	serlen /= 120
+	let dt=0;
+	let t1,t2,t3,dh,th,trec,tnow,i;
 
-function appendData(elSelectPeriod, elChart, elDataHist, elDataNow) {
+	for ( i=0;i<histData.length;i+=20) {
+		 t1=histData[i];
+		if ((!('date' in t1))|(!('time' in t1)))		{
+			debugger;
+			return;
+		}
 
-    var selnum = document.getElementById(elSelectPeriod).options.selectedIndex;
-    var selopt = document.getElementById(elSelectPeriod).options[selnum].value
-    var newtime = new Date().getTime();
-    var needlen = 120;
+		 t2=t1['date']+' '+t1['time']
+		 t3=t2.split(' ');
+		 dh = t1['date'].split(':');
+		 th = t1['time'].split(':');
+		 trec=(new Date('20'+dh[2],+dh[1]-1,dh[0],th[0],th[1],th[2],0)).getTime()/(1000*3600);
+		 tnow=(new Date().getTime()) /(1000*3600);
+		 dt = tnow-   trec;
+		if (  ( tnow -   trec )<serlen){
+
+		 	break	;
+
+		} ;
+
+	}
+	if (i>0) histData.splice(0,i);
+	if (histData.length==0) {
+		histData.push(newData);	
+		return;
+	}
+
+	t1=histData[histData.length-1];
+		if ((!('date' in t1))|(!('time' in t1)))		{
+			debugger;
+			return;
+
+		}
+
+	dh = t1['date'].split(':');
+	th = t1['time'].split(':');
+	let tLastRec=(new Date('20'+dh[2],+dh[1]-1,dh[0],th[0],th[1],th[2],0)).getTime()/(1000);
+	
+	dh = newData['date'].split(':');
+	th = newData['time'].split(':');
+	let tNewRec=(new Date('20'+dh[2],+dh[1]-1,dh[0],th[0],th[1],th[2],0)).getTime()/(1000);
+	dt = tNewRec-   tLastRec;
+	if (  ( dt  )>serlen*5){
+
+
+	 	histData.push(newData);	;
+	 	if (serlen==1) console.log('shrin append '+tLastRec+' '+tNewRec+' dt='+dt);
+
+	} ;
+
+
+
+
+}
+
+function appendData(elSelectPeriod, elChart, elDataHist111, elDataNow) {
+	let elDataHist = elChart.dataProvider;
+
+    let selnum = document.getElementById(elSelectPeriod).options.selectedIndex;
+    let selopt = document.getElementById(elSelectPeriod).options[selnum].value
+    let newtime = new Date().getTime();
+    let needlen = 120;
     switch (selopt) {
         case "online":
             needlen = 0;
@@ -89,16 +154,10 @@ function appendData(elSelectPeriod, elChart, elDataHist, elDataNow) {
             needlen = 24 * 120;
             break;
     }
-    var deltime = (newtime - starttime);
-    if ((deltime < 30000) && (needlen > 0))
-        return;
-    if (needlen == 0) {
-        needlen = 300;
-    }
-    elDataHist.push(elDataNow);
-    if (elDataHist.length > needlen) {
-        elDataHist.splice(0, elDataHist.length - needlen)
-    }
+
+    //elDataHist.push(elDataNow);
+    shrink_append_Hist(elDataHist,elDataNow,needlen)
+
     elChart.validateData();
 }
 
@@ -163,7 +222,7 @@ function processData(t) {
   	insatData[i] = (val+' ').trim().replace(",", ".");
   }
 
-    // k1t6 = toChart(r[12]);
+    
     
     //  k1t11 
     r[28] = insatData['01LEC01CT011'];
@@ -265,164 +324,17 @@ function processData(t) {
          $(this).html(r[o])
         $(this).html(parseFloat(r[o]).toFixed(1))
     });
-    //                        console.log('\n step 3\n');
 
-    var newDate = new Date();
-    newDate.setDate(newDate.getDate());
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                        KGU-1                                                                      ///
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Обороты
-    var k1td1 = toChart(r[45]);
-    var k1td2 = toChart(r[46]);
-    var k1td3 = toChart(r[47]);
-    var k1pg = toChart(r[51]);
-//Уровни
-    var k1sbr = toChart(r[35]);
-    var k1vanna = toChart(r[36]);
-    var k1bo1 = toChart(r[32]);
-    var k1bo2 = toChart(r[33]);
-//Температуры
-    var k1t1 = toChart(r[5]);
-    var k1t5 = toChart(r[11]);
-    var k1t9 = toChart(r[23]);
-    var k1t13 = toChart(r[111]);
-    var k1t2 = toChart(r[7]);
-    var k1t6 = toChart(r[12]);
-    var k1t10 = toChart(r[24]);
-    var k1t3 = toChart(r[9]);
-    var k1t7 = toChart(r[26]);
-    var k1t11 = toChart(r[28]);
-    var k1t4 = toChart(r[10]);
-    var k1t8 = toChart(r[27]);
-    var k1t12 = toChart(r[29]);
-//Температуры на БО1 kgu 1
-    var k1t181 = toChart(r[14]);
-    var k1t191 = toChart(r[15]);
-    var k1t201 = toChart(r[16]);
-    var k1t211 = toChart(r[17]);
-//Температуры на БО2 kgu 1
-    var k1t182 = toChart(r[18]);
-    var k1t192 = toChart(r[19]);
-    var k1t202 = toChart(r[20]);
-    var k1t212 = toChart(r[21]);
-    var k1dt5t6 = k1t5 - k1t6;
-    var k1dt3t4 = k1t3 - k1t4;
-    var k1sdt5t6 = k1dt5t6.toString();
-    var k1sdt3t4 = k1dt3t4.toString();
-    k1dt5t6 = toChart(k1sdt5t6);
-    k1dt3t4 = toChart(k1sdt3t4);
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                        KGU-2                                                                      ///
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Обороты
-    var k2td1 = toChart(r[95]);
-    var k2td2 = toChart(r[96]);
-    var k2td3 = toChart(r[97]);
-    var k2pg = toChart(r[101]);
-//Уровни
-    var k2sbr = toChart(r[85]);
-    var k2vanna = toChart(r[86]);
-    var k2bo1 = toChart(r[82]);
-    var k2bo2 = toChart(r[83]);
-//Температуры
-    var k2t1 = toChart(r[55]);
-    var k2t5 = toChart(r[61]);
-    var k2t9 = toChart(r[73]);
-    var k2t13 = toChart(r[112]);
-    var k2t2 = toChart(r[57]);
-    var k2t6 = toChart(r[62]);
-    var k2t10 = toChart(r[74]);
-    var k2t3 = toChart(r[59]);
-    var k2t7 = toChart(r[76]);
-    var k2t11 = toChart(r[78]);
-    var k2t4 = toChart(r[60]);
-    var k2t8 = toChart(r[77]);
-    var k2t12 = toChart(r[79]);
-//Температуры на БО1 kgu 1
-    var k2t181 = toChart(r[64]);
-    var k2t191 = toChart(r[65]);
-    var k2t201 = toChart(r[66]);
-    var k2t211 = toChart(r[67]);
-//Температуры на БО2 kgu 1
-    var k2t182 = toChart(r[68]);
-    var k2t192 = toChart(r[69]);
-    var k2t202 = toChart(r[70]);
-    var k21t212 = toChart(r[71]);
-    var k2dt5t6 = k2t5 - k2t6;
-    var k2dt3t4 = k2t3 - k2t4;
-    var k2sdt5t6 = k2dt5t6.toString();
-    var k2sdt3t4 = k2dt3t4.toString();
-    k2dt5t6 = toChart(k2sdt5t6);
-    k2dt3t4 = toChart(k2sdt3t4);
-    //amchart process
-    var argx = newDate.format("H:i:s");
-    newDatam2 = {
-        time: argx,
-        k1t6: k1t6,
-        k1t7: k1t7,
-        k1t11: k1t11,
-        k1t12: k1t12,
-        k1t13: k1t13,
-        k1dt5t6: k1dt5t6,
-        k1dt3t4: k1dt3t4,
-        k1sbr: k1sbr,
-        k1vanna: k1vanna,
-        k1bo1: k1bo1,
-        k1bo2: k1bo2,
-//Температуры на БО1 kgu 1
-        k1t181: k1t181,
-        k1t191: k1t191,
-        k1t201: k1t201,
-        k1t211: k1t211,
-//Температуры на БО2 kgu 1
-        k1t182: k1t182,
-        k1t192: k1t192,
-        k1t202: k1t202,
-        k1t212: k1t212,
-        k2t6: k2t6,
-        k2t7: k2t7,
-        k2t11: k2t11,
-        k2t12: k2t12,
-        k2t13: k2t13,
-        k2dt5t6: k2dt5t6,
-        k2dt3t4: k2dt3t4,
-        k2sbr: k2sbr,
-        k2vanna: k2vanna,
-        k2bo1: k2bo1,
-        k2bo2: k2bo2,
-//Температуры на БО1 kgu 2
-        k2t181: k2t181,
-        k2t191: k2t191,
-        k2t201: k2t201,
-        k2t211: k2t211,
-//Температуры на БО2 kgu 2
-        k2t182: k2t182,
-        k2t192: k2t192,
-        k2t202: k2t202,
-        k2t212: k1t212,
+}
+function processFullData(fullData) {   //                        console.log('\n step 3\n');
+
 //    00LCM11CL001	Уровень газгольдера
-	    kgu1_00LCM11CL001:kgu1_00LCM11CL001,
+	fullData['kgu1_00LCM11CL001'] = fullData['00LCM11CL001'];
 //	00LCM51CL001	Уровень азота в азотном танке
-		kgu1_00LCM51CL001:kgu1_00LCM51CL001,
-//    var k1sbr
-    '01LCM11CL001': insatData['01LCM11CL001'],
-//    var k1vanna
-    '01LCM31CL001': insatData['01LCM31CL001'],
-//    var k1bo1 
-    '01LCM21CL001': insatData['01LCM21CL001'],
-//    var k1bo2 
-    '01LCM22CL001': insatData['01LCM22CL001'],
-//    00LCM11CL001	Уровень газгольдера
-	'00LCM11CL001': insatData['00LCM11CL001'],
-//	00LCM51CL001	Уровень азота в азотном танке
-	'00LCM51CL001': insatData['00LCM51CL001'],
+		
+	fullData['kgu1_00LCM51CL001'] = fullData['00LCM51CL001'];
+    let newDatam2 = Object.assign({},fullData);//!!!!!!!!!!!!!!!!!!!!!!
 
-    };
-
-    newDatam2 = Object.assign(newDatam2,insatData);
-
-    newtime = new Date().getTime();
     appendData("ch2periodselect", chart2, chartData2, newDatam2);
     appendData("ch3periodselect", chart3, chartData3, newDatam2);
     appendData("ch2_1periodselect", chart2_1, chartData2_1, newDatam2);
@@ -430,9 +342,27 @@ function processData(t) {
     appendData("ch3_1periodselect", chart3_1, chartData3_1, newDatam2);
     appendData("ch3_2periodselect", chart3_2, chartData3_2, newDatam2);
     var deltime = (newtime - starttime);
-    if ((newtime - starttime) < 30000)
-        return;
+//    if ((newtime - starttime) < 30000)
+//        return;
     starttime = newtime;
+    insatData = fullData;
+$.each($(".booster-table").find("div.int"), function () {
+//        var o = $(this).data("id");
+//        $(this).html('i'+fullData[o])
+    }), $.each($(".booster-table").find("div.float"), function () {
+        var o = $(this).data("idb");
+        if (typeof o ==NaN) {return;}
+        if (typeof o =="undefined") {return;}
+        if (typeof fullData[o] =="undefined") {return;}
+         let tmpa=parseFloat(fullData[o]).toFixed(2);
+          // console.log(o+'  = '+fullData[o]+' = '+tmpa+' '+typeof tmpa);
+        if ( (tmpa=='NaN')| (tmpa==NaN) ){
+        } else {
+                    $(this).html(tmpa);
+
+        }
+    });
+
     return 0;
 }
 
@@ -442,37 +372,88 @@ function getAllData() {
 //                        console.log('\n step 1\n');
 
 // console.log("\n###Agetson nucloweb start");
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: url,
-        data: {
-            "get_member": "id"
-        },
-        success: function (t) {
-            processData(t);
-        },
-        error: function (error) {
-            console.log("\n####Main AJAX  error:" + JSON.stringify(error));
-        }
+//    $.ajax({
+//        type: "POST",
+//        dataType: "json",
+//        url: "last_data30.dat ",
+//        data: {
+//            "get_member": "id"
+//       },
+//        success: function (t) {
+//            processData(t);
+//        },
+//        error: function (error) {
+//            console.log("\n####Main AJAX  error:" + JSON.stringify(error));
+//        }
+//    });
+    fetch("last_data30.dat") 
+    .then( 
+        function(response) { 
+            if (response.status !== 200) { 
+                console.log('last_data30.dat was a problem. Status Code: ' + 
+                response.status); 
+//                setTimeout(getData,1500)
+                return; 
+            }
+    
+            // Examine the text in the response 
+            response.text().then(function(t) { 
+	            
+	            //console.log("\n+++++mac30 data  OK    :" + t);
+	            t = t.replace(/NaN/gi,'"none"');
+	            t = t.replace(/\)/gi,'');
+	            t = t.replace(/\;/gi,'');
+	            t=JSON.parse(t);
+	            processData(t);
+	            
+            }); 
+        } 
+    ) 
+    .catch(function(err) { 
+        console.log('Fetch Error :-S', err); 
     });
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: "http://159.93.40.150:8010/data",
-//        url: "http://62.84.109.196:8010/data",
-			
-        data: {
-            "get_member": "id"
-        },
-        success: function (t) {
-            // console.log("\n####INsat AJAX  :" + JSON.stringify(t));
-            processInsatData(t);
-        },
-        error: function (error) {
-            console.log("\n####INsat AJAX  error:" + JSON.stringify(error));
-        }
-    })
+
+    fetch("JSON_last_data.dat") 
+    .then( 
+        function(response) { 
+            if (response.status !== 200) { 
+                console.log('fullData was a problem. Status Code: ' + 
+                response.status); 
+//                setTimeout(getData,1500)
+                return; 
+            }
+    
+            // Examine the text in the response 
+            response.text().then(function(t) { 
+	            t = t.replace(/NaN/gi,'"none"');
+	            //console.log("\n+++++INsat AJAX  OK    :" + t);
+	            t=JSON.parse(t);
+	            processFullData(t);
+            }); 
+        } 
+    ) 
+    .catch(function(err) { 
+        console.log('Fetch Error fullddata :-S', err); 
+    });
+
+
+//     $.ajax({
+//         type: "GET",
+// //        dataType: "json",
+//         url: "JSON_last_data.dat",
+//         data: {
+//             "get_member": "id"
+//         },
+//         success: function (t) {
+//             t = t.replace(/NaN/gi,'"none"');
+//             console.log("\n+++++INsat AJAX  OK    :" + t);
+//             t=JSON.parse(t);
+//             processInsatData(t);
+//         },
+//         error: function (error) {
+//             console.log("\n####INsat AJAX  error:" + JSON.stringify(error));
+//         }
+//     })
 
     //                        //console.log('\n step chart 4 1\n');
 
@@ -484,6 +465,7 @@ function getAllData() {
 
 function saveCookie(name, value) {
     Cookies.set(name, value);
+    console.log('saveCookie(name, value) '+name+' = '+value);
 }
 function setMinmax(chart, mode) {
 
@@ -570,6 +552,8 @@ function periodChange(elSelect, elChart, elData) {
             needlen = 24 * 120;
             break;
     }
+    console.log(elSelect+' selopt='+selopt+' selnum='+selnum);
+
     updateChart(elData, elChart, needlen);
 }
 
@@ -630,9 +614,9 @@ window.onload = function () {
          hostname = '10.0.10.103'
     }
     console.log(hostname + " ");
-    url = "http://" + hostname + ":9090/get_data&callback=?";
-    histurl = "http://" + hostname + ":9090/get_hist=1&callback=?";
-    //    getAllData();
+    url = "http://" + hostname + ":9092/get_data&callback=?";
+    histurl = "http://" + hostname + ":9092/get_hist=1&callback=?";
+    //    getAllData();s
     console.log(url);
     document.getElementById("defaultOpen").click();
     chart2 = AmCharts.makeChart("chart2", {
@@ -932,6 +916,7 @@ window.onload = function () {
     setModePeriod("3_2");
     setModePeriod("2_1");
     setModePeriod("2_2");
+
     ch3periodchange();
     ch2periodchange();
     ch3_1periodchange();
@@ -944,7 +929,7 @@ window.onload = function () {
     ch2_1modechange();
     ch3_2modechange();
     ch2_2modechange();
-    document.getElementById('ch2periodselect').options.selectedIndex = 0;
+    //document.getElementById('ch2periodselect').options.selectedIndex = 0;
     getAllData();
     setInterval(getAllData, 1000);
 };
@@ -954,42 +939,124 @@ function setModePeriod(grId) {
     if (Cookies.get(elSelect) === undefined) {
 
     } else {
-        document.getElementById(elSelect).options.selectedIndex = Cookies.get(elSelect);
+    	let sindex = Cookies.get(elSelect);
+        document.getElementById(elSelect).options.selectedIndex = sindex;
     }
     var elSelect = "ch" + grId + "periodselect";
     if (Cookies.get(elSelect) === undefined) {
 
     } else {
-        document.getElementById(elSelect).options.selectedIndex = Cookies.get(elSelect);
+    	let sindex = Cookies.get(elSelect);
+
+        document.getElementById(elSelect).options.selectedIndex = sindex;
     }
 
 }
 
 function fixCh() {
 }
+function shrinkHist(histData,serlen){
+	if (serlen==0) serlen=120;
+	serlen /= 120
+	let dt=0;
+	let i;
+	for ( i=0;i<histData.length;i+=20) {
+		let t1=histData[i];
+		if ((!('date' in t1))|(!('time' in t1)))		{
+			debugger;
+		}
+		let t2=t1['date']+' '+t1['time']
+		let t3=t2.split(' ');
+		let dh = t1['date'].split(':');
+		let th = t1['time'].split(':');
+		let trec=(new Date('20'+dh[2],+dh[1]-1,dh[0],th[0],th[1],th[2],0)).getTime()/(1000*3600);
+		let tnow=(new Date().getTime()) /(1000*3600);
+		let dt = tnow-   trec;
+		if (  ( tnow -   trec )<serlen){
+
+		 	break	;
+
+		} ;
+
+	}
+	if (i>0) histData.splice(0,i);
+
+}
 
 function updateChart(chartD, chart, serlen) {
 //console.log("\n###Agetson nucloweb start");
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: histurl,
-        data: {
-            "get_member": "id"
-        },
-        success: function (histData) {
-             console.log(" GET HISTORY " + JSON.stringify(histData));
-            chartD.splice(0, chartD.length);
-            Array.prototype.push.apply(chartD, histData);
-            if (chartD.length > serlen) {
-                chartD.splice(0, chartD.length - serlen)
+
+//    fetch(histurl) 
+    fetch('hist.zip') 
+
+    .then( 
+        function(response) { 
+            if (response.status !== 200) { 
+                console.log('last_data30.dat was a problem. Status Code: ' + 
+                response.status); 
+//                setTimeout(getData,1500)
+                return; 
             }
+    
+            // Examine the text in the response 
+            response.text().then(function(t) { 
+            	//debugger;
+    let pako = window.pako;
+    let data = new Uint8Array(t.length / 2);
+    let b;
+    for (let i = 0; i < t.length; i++) {
+        let b = parseInt(t[2 * i] + t[2 * i + 1], 16);
+        data[i] = b;
+    }
+    t = pako.inflate(data, {to: 'string'});
+
+
+			t = t.replace(/NaN/gi,'"none"');	            
+			t = t.replace(/\(/gi,'');
+			t = t.replace(/\)/gi,'');
+			t = t.replace( /\,  \}/gi,'}');
+			// while (t.charAt(t.length-1)!=','){
+			// 	t=t.slice(0,-1);
+			// };
+			// t=t.slice(0,-1);
+//			t+=']';
+
+	        //    console.log("\n+++++mac30 data  OK    :\n" + t);
+	            let histData=JSON.parse(t);
+	            let l1=histData.length;
+            
+            shrinkHist(histData,serlen)
+            let l2=histData.length;
+            console.log('serlen='+serlen+' l1='+l1+' l2='+l2);
+
+            chart.dataProvider = histData;
+
             chart.validateData();
-        },
-        error: function (error) {
-            console.log("\n####AJAX  error:" + JSON.stringify(error));
-        }
-    })
+	            
+            }); 
+        } 
+    ) 
+
+    // $.ajax({
+    //     type: "POST",
+    //     dataType: "json",
+    //     url: histurl,
+    //     data: {
+    //         "get_member": "id"
+    //     },
+    //     success: function (histData) {
+    //          //console.log(" GET HISTORY " + JSON.stringify(histData));
+    //         chartD.splice(0, chartD.length);
+    //         Array.prototype.push.apply(chartD, histData);
+    //         if (chartD.length > serlen) {
+    //             chartD.splice(0, chartD.length - serlen)
+    //         }
+    //         chart.validateData();
+    //     },
+    //     error: function (error) {
+    //         console.log("\n####AJAX  error:" + JSON.stringify(error));
+    //     }
+    // })
 
     //                        //console.log('\n step chart 4 1\n');
 

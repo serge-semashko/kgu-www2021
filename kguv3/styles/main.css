@@ -6861,6 +6861,7 @@ body {
     max-width: 620px;
     width: 620px;
 }
+.booster-table,
 .data-table {
     width: 100%;
     margin: auto;
