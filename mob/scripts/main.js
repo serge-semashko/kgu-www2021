@@ -290,7 +290,7 @@ function getAllData() {
 //            console.log("\n####Main AJAX  error:" + JSON.stringify(error));
 //        }
 //    });
-    fetch("last_data30.js") 
+    fetch("last_data30.dat") 
     .then( 
         function(response) { 
             if (response.status !== 200) { 
@@ -302,6 +302,9 @@ function getAllData() {
     
             // Examine the text in the response 
             response.text().then(function(t) { 
+                t = t.replace(/NaN/gi,'"none"');
+                t = t.replace(/\)/gi,'');
+                t = t.replace(/\;/gi,'');
 	            
 	            //console.log("\n+++++mac30 data  OK    :" + t);
 	            t=JSON.parse(t);
@@ -314,7 +317,7 @@ function getAllData() {
         console.log('Fetch Error :-S', err); 
     });
 
-    fetch("JSON_last_data.js") 
+    fetch("JSON_last_data.dat") 
     .then( 
         function(response) { 
             if (response.status !== 200) { 
