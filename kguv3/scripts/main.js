@@ -10,42 +10,44 @@ var ch3updating = false;
 var step = 0;
 var chart2count = 0;
 var chart3count = 0;
-var insatData={};
-function toChart(txtval) {
-	try{
-    txtval = txtval.toString();
-    var t6 = Number(txtval.replace(/,/g, "."))
-    t6 = Number(t6.toFixed(2));
-    return t6;
-	} catch(error){
-		return '0';
-	}
-    
-}
-function formatNumber(val,dec)
-{
-	try{
-	var res='';
-	var inp=val;
-	var ind = 0;
+var insatData = {};
 
-	while (ind<val.length){
-		res+=inp[ind];
-		if (inp[ind]==',' | inp[ind]=='.'){
-			break;
-		}
-		ind++;
-		
-	}
-	if (ind>val.length -1)
-		{return val}
-	for (var  afterPos=1;(ind+afterPos)<val.length & afterPos<=dec ;afterPos++){
-		res+=inp[ind+afterPos];	
-	}
-	return res;
-} catch (e){
-   return 'Non';
+function toChart(txtval) {
+    try {
+        txtval = txtval.toString();
+        var t6 = Number(txtval.replace(/,/g, "."))
+        t6 = Number(t6.toFixed(2));
+        return t6;
+    } catch (error) {
+        return '0';
+    }
+
 }
+
+function formatNumber(val, dec) {
+    try {
+        var res = '';
+        var inp = val;
+        var ind = 0;
+
+        while (ind < val.length) {
+            res += inp[ind];
+            if (inp[ind] == ',' | inp[ind] == '.') {
+                break;
+            }
+            ind++;
+
+        }
+        if (ind > val.length - 1) {
+            return val
+        }
+        for (var afterPos = 1; (ind + afterPos) < val.length & afterPos <= dec; afterPos++) {
+            res += inp[ind + afterPos];
+        }
+        return res;
+    } catch (e) {
+        return 'Non';
+    }
 }
 
 function spliceData(elName, elData) {
@@ -65,76 +67,78 @@ function spliceData(elName, elData) {
     }
 
     if (elData.length > needlen) {
-        elData.splice(0, elData.length - (needlen*2))
+        elData.splice(0, elData.length - (needlen * 2))
     }
 }
-function shrink_append_Hist(histData,newData,serlen){
-	if (histData.length==0) {
-		histData.push(newData);	
-		return;
-	}
-	if (serlen==0) serlen=120;
-	serlen /= 120
-	let dt=0;
-	let t1,t2,t3,dh,th,trec,tnow,i;
 
-	for ( i=0;i<histData.length;i+=20) {
-		 t1=histData[i];
-		if ((!('date' in t1))|(!('time' in t1)))		{
-			debugger;
-			return;
-		}
+function shrink_append_Hist(histData, newData, serlen) {
+    if (histData.length == 0) {
+        histData.push(newData);
+        return;
+    }
+    if (serlen == 0) serlen = 120;
+    serlen /= 120
+    let dt = 0;
+    let t1, t2, t3, dh, th, trec, tnow, i;
 
-		 t2=t1['date']+' '+t1['time']
-		 t3=t2.split(' ');
-		 dh = t1['date'].split(':');
-		 th = t1['time'].split(':');
-		 trec=(new Date('20'+dh[2],+dh[1]-1,dh[0],th[0],th[1],th[2],0)).getTime()/(1000*3600);
-		 tnow=(new Date().getTime()) /(1000*3600);
-		 dt = tnow-   trec;
-		if (  ( tnow -   trec )<serlen){
+    for (i = 0; i < histData.length; i += 20) {
+        t1 = histData[i];
+        if ((!('date' in t1)) | (!('time' in t1))) {
+            debugger;
+            return;
+        }
 
-		 	break	;
+        t2 = t1['date'] + ' ' + t1['time']
+        t3 = t2.split(' ');
+        dh = t1['date'].split(':');
+        th = t1['time'].split(':');
+        trec = (new Date('20' + dh[2], +dh[1] - 1, dh[0], th[0], th[1], th[2], 0)).getTime() / (1000 * 3600);
+        tnow = (new Date().getTime()) / (1000 * 3600);
+        dt = tnow - trec;
+        if ((tnow - trec) < serlen) {
 
-		} ;
+            break;
 
-	}
-	if (i>0) histData.splice(0,i);
-	if (histData.length==0) {
-		histData.push(newData);	
-		return;
-	}
+        }
+        ;
 
-	t1=histData[histData.length-1];
-		if ((!('date' in t1))|(!('time' in t1)))		{
-			debugger;
-			return;
+    }
+    if (i > 0) histData.splice(0, i);
+    if (histData.length == 0) {
+        histData.push(newData);
+        return;
+    }
 
-		}
+    t1 = histData[histData.length - 1];
+    if ((!('date' in t1)) | (!('time' in t1))) {
+        debugger;
+        return;
 
-	dh = t1['date'].split(':');
-	th = t1['time'].split(':');
-	let tLastRec=(new Date('20'+dh[2],+dh[1]-1,dh[0],th[0],th[1],th[2],0)).getTime()/(1000);
-	
-	dh = newData['date'].split(':');
-	th = newData['time'].split(':');
-	let tNewRec=(new Date('20'+dh[2],+dh[1]-1,dh[0],th[0],th[1],th[2],0)).getTime()/(1000);
-	dt = tNewRec-   tLastRec;
-	if (  ( dt  )>serlen*5){
+    }
 
+    dh = t1['date'].split(':');
+    th = t1['time'].split(':');
+    let tLastRec = (new Date('20' + dh[2], +dh[1] - 1, dh[0], th[0], th[1], th[2], 0)).getTime() / (1000);
 
-	 	histData.push(newData);	;
-	 	if (serlen==1) console.log('shrin append '+tLastRec+' '+tNewRec+' dt='+dt);
-
-	} ;
+    dh = newData['date'].split(':');
+    th = newData['time'].split(':');
+    let tNewRec = (new Date('20' + dh[2], +dh[1] - 1, dh[0], th[0], th[1], th[2], 0)).getTime() / (1000);
+    dt = tNewRec - tLastRec;
+    if ((dt) > serlen * 5) {
 
 
+        histData.push(newData);
+        ;
+        if (serlen == 1) console.log('shrin append ' + tLastRec + ' ' + tNewRec + ' dt=' + dt);
+
+    }
+    ;
 
 
 }
 
 function appendData(elSelectPeriod, elChart, elDataHist111, elDataNow) {
-	let elDataHist = elChart.dataProvider;
+    let elDataHist = elChart.dataProvider;
 
     let selnum = document.getElementById(elSelectPeriod).options.selectedIndex;
     let selopt = document.getElementById(elSelectPeriod).options[selnum].value
@@ -156,25 +160,26 @@ function appendData(elSelectPeriod, elChart, elDataHist111, elDataNow) {
     }
 
     //elDataHist.push(elDataNow);
-    shrink_append_Hist(elDataHist,elDataNow,needlen)
+    shrink_append_Hist(elDataHist, elDataNow, needlen)
 
     elChart.validateData();
 }
 
 function processInsatData(t) {
-	insatData = t;
-	// console.log('Insat='+JSON.stringify(t))
+    insatData = t;
+    // console.log('Insat='+JSON.stringify(t))
 }
+
 function processData(t) {
     var r = [],
-            o = 0;
+        o = 0;
     // console.log('\n step 2\n');
     var a = t.VV[1].replace(/,/g, "."),
-            i = t.VV[2].replace(/,/g, "."),
-            d = t.VV[167].replace(/,/g, "."),
-            l = Number(a),
-            n = Number(i),
-            c = Number(d);
+        i = t.VV[2].replace(/,/g, "."),
+        d = t.VV[167].replace(/,/g, "."),
+        l = Number(a),
+        n = Number(i),
+        c = Number(d);
     for (var h = 0; h < t.ID.length; ++h) {
         var s = t.ID[h];
         r[s] = 0;
@@ -182,11 +187,11 @@ function processData(t) {
             "VALUE" == t.VN[p] && (r[s] = t.VV[p].replace(",", "."));
         o += g
     }
-   for (i in r){
-       	var a = r[i];
-       	if( (+a<0) | (+a>1000000)) {
-            r[i]='error';
-       	}
+    for (i in r) {
+        var a = r[i];
+        if ((+a < 0) | (+a > 1000000)) {
+            r[i] = 'error';
+        }
     }
     r[45] = 'NaN';
     r[46] = 'NaN';
@@ -217,13 +222,12 @@ function processData(t) {
     r[19] = 'NaN';
     r[20] = 'NaN';
     r[21] = 'NaN';
-  for (var i in insatData){
-  	var val = formatNumber(insatData[i],3);
-  	insatData[i] = (val+' ').trim().replace(",", ".");
-  }
+    for (var i in insatData) {
+        var val = formatNumber(insatData[i], 3);
+        insatData[i] = (val + ' ').trim().replace(",", ".");
+    }
 
-    
-    
+
     //  k1t11 
     r[28] = insatData['01LEC01CT011'];
     // var k1t12 
@@ -251,9 +255,9 @@ function processData(t) {
     //T10
     r[24] = insatData['01LCM11CT001'];
 //Температуры на БО1 kgu 1
-	//T181 var k1t181 
+    //T181 var k1t181
     r[14] = insatData['01LEC01CT181'];
-    
+
 // t191    var k1t191 
     r[15] = insatData['01LEC01CT191'];
 
@@ -293,27 +297,27 @@ function processData(t) {
 //    var k1bo2 
     r[33] = insatData['01LCM22CL001'];
 //    00LCM11CL001	Уровень газгольдера
-	var kgu1_00LCM11CL001 = insatData['00LCM11CL001'];
+    var kgu1_00LCM11CL001 = insatData['00LCM11CL001'];
 //	00LCM51CL001	Уровень азота в азотном танке
-	var kgu1_00LCM51CL001 = insatData['00LCM51CL001'];
-	    var tempers = [5,11,23,111,7,12,24,9,26,28,10,27,29,14,15,16,17,18,19,20,21,  55,61,73,112,57,62,74,59,76,78,60,77,79,64,65,66,67,68,69,70,71];
-  for (var i in tempers){
-  	var val = formatNumber(r[tempers[i]],1);
-  	r[tempers[i]] = (val+' ').trim().replace(",", ".");
+    var kgu1_00LCM51CL001 = insatData['00LCM51CL001'];
+    var tempers = [5, 11, 23, 111, 7, 12, 24, 9, 26, 28, 10, 27, 29, 14, 15, 16, 17, 18, 19, 20, 21, 55, 61, 73, 112, 57, 62, 74, 59, 76, 78, 60, 77, 79, 64, 65, 66, 67, 68, 69, 70, 71];
+    for (var i in tempers) {
+        var val = formatNumber(r[tempers[i]], 1);
+        r[tempers[i]] = (val + ' ').trim().replace(",", ".");
 
-  }
-    var tempers = [95,96,97,101,45,46,47,51];
-  for (var i in tempers){
+    }
+    var tempers = [95, 96, 97, 101, 45, 46, 47, 51];
+    for (var i in tempers) {
 
-  	r[tempers[i]] = (r[tempers[i]]+' ').trim().replace(",", ".");
-  	var p1 = r[tempers[i]].indexOf('.');
-  	if (p1>-1){
-  		r[tempers[i]] = r[tempers[i]].substr(0,p1);
-  	}
+        r[tempers[i]] = (r[tempers[i]] + ' ').trim().replace(",", ".");
+        var p1 = r[tempers[i]].indexOf('.');
+        if (p1 > -1) {
+            r[tempers[i]] = r[tempers[i]].substr(0, p1);
+        }
 
-  }
-  var p1 = r.join(',');
-  //console.log('p1='+p1)
+    }
+    var p1 = r.join(',');
+    //console.log('p1='+p1)
 
 
     $.each($(".data-table").find("div.int"), function () {
@@ -321,19 +325,20 @@ function processData(t) {
         $(this).html(r[o])
     }), $.each($(".data-table").find("div.float"), function () {
         var o = $(this).data("id");
-         $(this).html(r[o])
+        $(this).html(r[o])
         $(this).html(parseFloat(r[o]).toFixed(1))
     });
 
 }
+
 function processFullData(fullData) {   //                        console.log('\n step 3\n');
 
 //    00LCM11CL001	Уровень газгольдера
-	fullData['kgu1_00LCM11CL001'] = fullData['00LCM11CL001'];
+    fullData['kgu1_00LCM11CL001'] = fullData['00LCM11CL001'];
 //	00LCM51CL001	Уровень азота в азотном танке
-		
-	fullData['kgu1_00LCM51CL001'] = fullData['00LCM51CL001'];
-    let newDatam2 = Object.assign({},fullData);//!!!!!!!!!!!!!!!!!!!!!!
+
+    fullData['kgu1_00LCM51CL001'] = fullData['00LCM51CL001'];
+    let newDatam2 = Object.assign({}, fullData);//!!!!!!!!!!!!!!!!!!!!!!
 
     appendData("ch2periodselect", chart2, chartData2, newDatam2);
     appendData("ch3periodselect", chart3, chartData3, newDatam2);
@@ -346,19 +351,25 @@ function processFullData(fullData) {   //                        console.log('\n
 //        return;
     starttime = newtime;
     insatData = fullData;
-$.each($(".booster-table").find("div.int"), function () {
+    $.each($(".booster-table").find("div.int"), function () {
 //        var o = $(this).data("id");
 //        $(this).html('i'+fullData[o])
     }), $.each($(".booster-table").find("div.float"), function () {
         var o = $(this).data("idb");
-        if (typeof o ==NaN) {return;}
-        if (typeof o =="undefined") {return;}
-        if (typeof fullData[o] =="undefined") {return;}
-         let tmpa=parseFloat(fullData[o]).toFixed(2);
-          // console.log(o+'  = '+fullData[o]+' = '+tmpa+' '+typeof tmpa);
-        if ( (tmpa=='NaN')| (tmpa==NaN) ){
+        if (typeof o == NaN) {
+            return;
+        }
+        if (typeof o == "undefined") {
+            return;
+        }
+        if (typeof fullData[o] == "undefined") {
+            return;
+        }
+        let tmpa = parseFloat(fullData[o]).toFixed(2);
+        // console.log(o+'  = '+fullData[o]+' = '+tmpa+' '+typeof tmpa);
+        if ((tmpa == 'NaN') | (tmpa == NaN)) {
         } else {
-                    $(this).html(tmpa);
+            $(this).html(tmpa);
 
         }
     });
@@ -386,55 +397,55 @@ function getAllData() {
 //            console.log("\n####Main AJAX  error:" + JSON.stringify(error));
 //        }
 //    });
-    fetch("last_data30.dat") 
-    .then( 
-        function(response) { 
-            if (response.status !== 200) { 
-                console.log('last_data30.dat was a problem. Status Code: ' + 
-                response.status); 
+    fetch("last_data30.dat")
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    console.log('last_data30.dat was a problem. Status Code: ' +
+                        response.status);
 //                setTimeout(getData,1500)
-                return; 
-            }
-    
-            // Examine the text in the response 
-            response.text().then(function(t) { 
-	            
-	            //console.log("\n+++++mac30 data  OK    :" + t);
-	            t = t.replace(/NaN/gi,'"none"');
-	            t = t.replace(/\)/gi,'');
-	            t = t.replace(/\;/gi,'');
-	            t=JSON.parse(t);
-	            processData(t);
-	            
-            }); 
-        } 
-    ) 
-    .catch(function(err) { 
-        console.log('Fetch Error :-S', err); 
-    });
+                    return;
+                }
 
-    fetch("JSON_last_data.dat") 
-    .then( 
-        function(response) { 
-            if (response.status !== 200) { 
-                console.log('fullData was a problem. Status Code: ' + 
-                response.status); 
-//                setTimeout(getData,1500)
-                return; 
+                // Examine the text in the response
+                response.text().then(function (t) {
+
+                    //console.log("\n+++++mac30 data  OK    :" + t);
+                    t = t.replace(/NaN/gi, '"none"');
+                    t = t.replace(/\)/gi, '');
+                    t = t.replace(/\;/gi, '');
+                    t = JSON.parse(t);
+                    processData(t);
+
+                });
             }
-    
-            // Examine the text in the response 
-            response.text().then(function(t) { 
-	            t = t.replace(/NaN/gi,'"none"');
-	            //console.log("\n+++++INsat AJAX  OK    :" + t);
-	            t=JSON.parse(t);
-	            processFullData(t);
-            }); 
-        } 
-    ) 
-    .catch(function(err) { 
-        console.log('Fetch Error fullddata :-S', err); 
-    });
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        });
+
+    fetch("JSON_last_data.dat")
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    console.log('fullData was a problem. Status Code: ' +
+                        response.status);
+//                setTimeout(getData,1500)
+                    return;
+                }
+
+                // Examine the text in the response
+                response.text().then(function (t) {
+                    t = t.replace(/NaN/gi, '"none"');
+                    //console.log("\n+++++INsat AJAX  OK    :" + t);
+                    t = JSON.parse(t);
+                    processFullData(t);
+                });
+            }
+        )
+        .catch(function (err) {
+            console.log('Fetch Error fullddata :-S', err);
+        });
 
 
 //     $.ajax({
@@ -465,8 +476,9 @@ function getAllData() {
 
 function saveCookie(name, value) {
     Cookies.set(name, value);
-    console.log('saveCookie(name, value) '+name+' = '+value);
+    console.log('saveCookie(name, value) ' + name + ' = ' + value);
 }
+
 function setMinmax(chart, mode) {
 
     if (mode == 3) {
@@ -506,6 +518,7 @@ function ch2_2modechange() {
     chart2_2.graphs = graphs2_2[selnum];
     chart2_2.validateData();
 }
+
 function ch3modechange() {
     chupdating[3] = true;
     var selnum = document.getElementById("ch3modeselect").options.selectedIndex;
@@ -552,7 +565,7 @@ function periodChange(elSelect, elChart, elData) {
             needlen = 24 * 120;
             break;
     }
-    console.log(elSelect+' selopt='+selopt+' selnum='+selnum);
+    console.log(elSelect + ' selopt=' + selopt + ' selnum=' + selnum);
 
     updateChart(elData, elChart, needlen);
 }
@@ -611,7 +624,7 @@ window.onload = function () {
     }
     if (hostname == 'localhost') {
         // hostname = '159.93.126.233'
-         hostname = '10.0.10.103'
+        hostname = '10.0.10.103'
     }
     console.log(hostname + " ");
     url = "http://" + hostname + ":9092/get_data&callback=?";
@@ -653,12 +666,12 @@ window.onload = function () {
                 "axisColor": "#FF6600",
             },
             {
-            "id":"p1",
-            "axisColor": "#FF6600",
-            "axisThickness": 2,
-            "axisAlpha": 1,
-            "titleFontSize": 10,
-            "position": "right"
+                "id": "p1",
+                "axisColor": "#FF6600",
+                "axisThickness": 2,
+                "axisAlpha": 1,
+                "titleFontSize": 10,
+                "position": "right"
             }
 
 
@@ -687,12 +700,12 @@ window.onload = function () {
             }
             ,
             {
-            "id":"p1",
-            "axisColor": "#FF6600",
-            "axisThickness": 2,
-            "axisAlpha": 1,
-            "titleFontSize": 10,
-            "position": "right"
+                "id": "p1",
+                "axisColor": "#FF6600",
+                "axisThickness": 2,
+                "axisAlpha": 1,
+                "titleFontSize": 10,
+                "position": "right"
             }
         ],
 
@@ -731,19 +744,19 @@ window.onload = function () {
     chart2_2 = AmCharts.makeChart("chart2_2", {
         "type": "serial",
         "theme": "light",
-                "valueAxes": [
+        "valueAxes": [
             {
                 "maximum": NaN,
                 "minimum": NaN,
             }
             ,
             {
-            "id":"p1",
-            "axisColor": "#FF6600",
-            "axisThickness": 2,
-            "axisAlpha": 1,
-            "titleFontSize": 10,
-            "position": "right"
+                "id": "p1",
+                "axisColor": "#FF6600",
+                "axisThickness": 2,
+                "axisAlpha": 1,
+                "titleFontSize": 10,
+                "position": "right"
             }
         ],
 
@@ -798,7 +811,7 @@ window.onload = function () {
             fontSize: 12,
             position: "right"
 
-                    //            "useGraphSettings": true
+            //            "useGraphSettings": true
         },
         "dataProvider": chartData3,
         "graphs": graphs3[0],
@@ -828,7 +841,7 @@ window.onload = function () {
         //        automarginlegend:"false",
         "type": "serial",
         "theme": "light",
-                "valueAxes": [
+        "valueAxes": [
             {
                 "maximum": NaN,
                 "minimum": NaN,
@@ -871,7 +884,7 @@ window.onload = function () {
         //        automarginlegend:"false",
         "type": "serial",
         "theme": "light",
-                "valueAxes": [
+        "valueAxes": [
             {
                 "maximum": NaN,
                 "minimum": NaN,
@@ -933,20 +946,21 @@ window.onload = function () {
     getAllData();
     setInterval(getAllData, 1000);
 };
+
 function setModePeriod(grId) {
 
     var elSelect = "ch" + grId + "modeselect";
     if (Cookies.get(elSelect) === undefined) {
 
     } else {
-    	let sindex = Cookies.get(elSelect);
+        let sindex = Cookies.get(elSelect);
         document.getElementById(elSelect).options.selectedIndex = sindex;
     }
     var elSelect = "ch" + grId + "periodselect";
     if (Cookies.get(elSelect) === undefined) {
 
     } else {
-    	let sindex = Cookies.get(elSelect);
+        let sindex = Cookies.get(elSelect);
 
         document.getElementById(elSelect).options.selectedIndex = sindex;
     }
@@ -955,31 +969,33 @@ function setModePeriod(grId) {
 
 function fixCh() {
 }
-function shrinkHist(histData,serlen){
-	if (serlen==0) serlen=120;
-	serlen /= 120
-	let dt=0;
-	let i;
-	for ( i=0;i<histData.length;i+=20) {
-		let t1=histData[i];
-		if ((!('date' in t1))|(!('time' in t1)))		{
-			debugger;
-		}
-		let t2=t1['date']+' '+t1['time']
-		let t3=t2.split(' ');
-		let dh = t1['date'].split(':');
-		let th = t1['time'].split(':');
-		let trec=(new Date('20'+dh[2],+dh[1]-1,dh[0],th[0],th[1],th[2],0)).getTime()/(1000*3600);
-		let tnow=(new Date().getTime()) /(1000*3600);
-		let dt = tnow-   trec;
-		if (  ( tnow -   trec )<serlen){
 
-		 	break	;
+function shrinkHist(histData, serlen) {
+    if (serlen == 0) serlen = 120;
+    serlen /= 120
+    let dt = 0;
+    let i;
+    for (i = 0; i < histData.length; i += 20) {
+        let t1 = histData[i];
+        if ((!('date' in t1)) | (!('time' in t1))) {
+            debugger;
+        }
+        let t2 = t1['date'] + ' ' + t1['time']
+        let t3 = t2.split(' ');
+        let dh = t1['date'].split(':');
+        let th = t1['time'].split(':');
+        let trec = (new Date('20' + dh[2], +dh[1] - 1, dh[0], th[0], th[1], th[2], 0)).getTime() / (1000 * 3600);
+        let tnow = (new Date().getTime()) / (1000 * 3600);
+        let dt = tnow - trec;
+        if ((tnow - trec) < serlen) {
 
-		} ;
+            break;
 
-	}
-	if (i>0) histData.splice(0,i);
+        }
+        ;
+
+    }
+    if (i > 0) histData.splice(0, i);
 
 }
 
@@ -987,55 +1003,55 @@ function updateChart(chartD, chart, serlen) {
 //console.log("\n###Agetson nucloweb start");
 
 //    fetch(histurl) 
-    fetch('hist.zip') 
+    fetch('hist.zip')
 
-    .then( 
-        function(response) { 
-            if (response.status !== 200) { 
-                console.log('last_data30.dat was a problem. Status Code: ' + 
-                response.status); 
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    console.log('last_data30.dat was a problem. Status Code: ' +
+                        response.status);
 //                setTimeout(getData,1500)
-                return; 
-            }
-    
-            // Examine the text in the response 
-            response.text().then(function(t) { 
-            	//debugger;
-    let pako = window.pako;
-    let data = new Uint8Array(t.length / 2);
-    let b;
-    for (let i = 0; i < t.length; i++) {
-        let b = parseInt(t[2 * i] + t[2 * i + 1], 16);
-        data[i] = b;
-    }
-    t = pako.inflate(data, {to: 'string'});
+                    return;
+                }
+
+                // Examine the text in the response
+                response.text().then(function (t) {
+                    //debugger;
+                    let pako = window.pako;
+                    let data = new Uint8Array(t.length / 2);
+                    let b;
+                    for (let i = 0; i < t.length; i++) {
+                        let b = parseInt(t[2 * i] + t[2 * i + 1], 16);
+                        data[i] = b;
+                    }
+                    t = pako.inflate(data, {to: 'string'});
 
 
-			t = t.replace(/NaN/gi,'"none"');	            
-			t = t.replace(/\(/gi,'');
-			t = t.replace(/\)/gi,'');
-			t = t.replace( /\,  \}/gi,'}');
-			// while (t.charAt(t.length-1)!=','){
-			// 	t=t.slice(0,-1);
-			// };
-			// t=t.slice(0,-1);
+                    t = t.replace(/NaN/gi, '"none"');
+                    t = t.replace(/\(/gi, '');
+                    t = t.replace(/\)/gi, '');
+                    t = t.replace(/\,  \}/gi, '}');
+                    // while (t.charAt(t.length-1)!=','){
+                    // 	t=t.slice(0,-1);
+                    // };
+                    // t=t.slice(0,-1);
 //			t+=']';
 
-	        //    console.log("\n+++++mac30 data  OK    :\n" + t);
-	            let histData=JSON.parse(t);
-	            let l1=histData.length;
-            
-            shrinkHist(histData,serlen)
-            let l2=histData.length;
-            console.log('serlen='+serlen+' l1='+l1+' l2='+l2);
+                    //    console.log("\n+++++mac30 data  OK    :\n" + t);
+                    let histData = JSON.parse(t);
+                    let l1 = histData.length;
 
-            chart.dataProvider = histData;
+                    shrinkHist(histData, serlen)
+                    let l2 = histData.length;
+                    console.log('serlen=' + serlen + ' l1=' + l1 + ' l2=' + l2);
 
-            chart.validateData();
-	            
-            }); 
-        } 
-    ) 
+                    chart.dataProvider = histData;
+
+                    chart.validateData();
+
+                });
+            }
+        )
 
     // $.ajax({
     //     type: "POST",
@@ -1064,12 +1080,12 @@ function updateChart(chartD, chart, serlen) {
 
 function getDate() {
     var e = new Date,
-            r = e.getFullYear(),
-            o = e.getMonth() + 1,
-            t = e.getDate(),
-            a = e.getHours(),
-            i = e.getMinutes(),
-            d = e.getSeconds();
+        r = e.getFullYear(),
+        o = e.getMonth() + 1,
+        t = e.getDate(),
+        a = e.getHours(),
+        i = e.getMinutes(),
+        d = e.getSeconds();
     d < 10 && (d = "0" + d), i < 10 && (i = "0" + i), r < 10 && (r = "0" + r), o < 10 && (o = "0" + o), t < 10 && (t = "0" + t), document.getElementById("timedisplay").innerHTML = t + "." + o + "." + r + "\t" + a + ":" + i + ":" + d
 }
 
@@ -1189,7 +1205,7 @@ Date.replaceChars = {
     u: function () {
         var m = this.getMilliseconds();
         return (m < 10 ? '00' : (m < 100 ?
-                '0' : '')) + m;
+            '0' : '')) + m;
     },
     // Timezone
     e: function () {
