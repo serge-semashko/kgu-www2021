@@ -234,6 +234,8 @@ function processData(t) {
     r[29] = insatData['01LEC01CT012'];
     // var k1t13 
     r[111] = insatData['01LEC01CT013'];
+    // var k1t14 
+    r[31] =  insatData['01LEC01CT014'];
     // var k1t6 
     r[12] = insatData['01LEC02CT006'];
     // var k1t7 
