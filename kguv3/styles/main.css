@@ -6877,21 +6877,17 @@ body {
     margin-top: 0px;
 }
 .-graphContaner {
-    width: 400px;
+    width: 100%;
 }
 .graphSelect {
-    margin-left: 6px;
+    margin-left: 61px;
     position: relative;
-    1top: 407px;
-    1left: 20px;
     top: 1px;
-    left: 120px;
-    z-index: 999;
 }
 .graphContaner {
     background: #efefef;
     border: 2px solid #898989;
-    width: 700px;
+    width: 100%;
     margin-top: -20px;
 }
 .b-head {
