@@ -65,7 +65,7 @@ dfn {
     font-style: italic
 }
 h1 {
-    font-size: 2em;
+    font-size: 1.8em;
     margin: .67em 0
 }
 mark {
@@ -1284,7 +1284,7 @@ small {
 .mark,
 mark {
     background-color: #fcf8e3;
-    padding: .2em
+    padding: .1.8em
 }
 .text-left {
     text-align: left
@@ -4933,7 +4933,7 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
 }
 .label {
     display: inline;
-    padding: .2em .6em .3em;
+    padding: .1.8em .6em .3em;
     font-size: 75%;
     font-weight: 700;
     line-height: 1;
@@ -6778,10 +6778,10 @@ all and (transform-3d) {
     }
 }
 .browserupgrade {
-    margin: .2em 0;
+    margin: .1.8em 0;
     background: #ccc;
     color: #000;
-    padding: .2em 0
+    padding: .1.8em 0
 }
 body {
     padding-top: 20px;
@@ -6846,16 +6846,22 @@ body {
     width: 1270px;
     float: left;
 }
+.grContaner{
+    padding: 10px;
+    padding-top: 1%;
+
+}
 .graphContaner,
-.tablesContaner {
+.tablesContaner1 {
     background: #000;
     float: left;
+
     min-width: 500px;
-    min-height: 465px;
-    max-height: 465px;
-    margin: 5px;
-    max-width: 620px;
-    width: 620px;
+    min-height: 90%;
+    max-height: 90%;
+
+    max-width: 100%;
+    width: 100%;
 }
 .one_third{
     position: fixed;
@@ -6863,12 +6869,12 @@ body {
     height: 45%;
 
 }
-.p11{left: 0;top: 5%;}
-.p12{left: 33%;top: 5%;}
-.p13{left: 66%;top: 5%;}
-.p21{left: 0;top: 55%;}
-.p22{left: 33%;top: 50%;}
-.p23{left: 66%;top: 50%;}
+.p11{left: 0;top: 3%;}
+.p12{left: 33%;top: 3%;}
+.p13{left: 66%;top: 3%;}
+.p21{left: 0;top: 53%;}
+.p22{left: 33%;top: 53%;}
+.p23{left: 66%;top: 53%;}
 
 .booster-table,
 .data-table {
@@ -6904,6 +6910,7 @@ body {
 color: #fff */
     background: #444444;
     color: #fff;
+    font-size: 1.8em;
     /*font-size: 20px;*/
 }
 .c-head {
@@ -6913,7 +6920,7 @@ font-size: 12px */
     background: #000000;
     font-weight: 700;
     color: #949494;
-    font-size: 15px;
+    font-size: 1.8em;
     /*max-width: 75px;*/
     width: 72px;
     float: left;
@@ -6924,8 +6931,7 @@ font-size: 12px */
 }
 .d-head {
     font-weight: 700;
-    font-size: 14px;
-    color: #333;
+    font-size: 1.8em;    color: #333;
     padding-left: 5px
 }
 .float,
@@ -6933,8 +6939,7 @@ font-size: 12px */
 /*     font-family: Arial, Verdana, sans-serif;
 font-size: 15px */
     font-family: Arial, Verdana, sans-serif;
-    font-size: 18px;
-    padding: 2px;
+    font-size: 1.8em;    padding: 2px;
     color: #ffd740;
     font-weight: bolder;
     padding-top: 6.8px;
@@ -7029,7 +7034,7 @@ div[id*=KGU] .data-table {
     text-align: center;
     color: #000;
     border-color: #fff;
-    margin-top: 5px
+    margin-top: 5px;
     margin-bottom: 5px;
 }
 div[id*=KGU] .tablesContaner {
@@ -7060,7 +7065,7 @@ div[id*=KGU] #ch2_2modeselect, div[id*=KGU] #ch2_2periodselect, div[id*=KGU] #ch
 div[id*=KGU] #l2_1 .graphContaner {
     min-height: 350px;
     margin: 0px auto;
-    max-width: 505px;
+    max-width: 7505px;
     min-width: 505px;
 }
 
