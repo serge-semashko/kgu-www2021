@@ -6895,12 +6895,11 @@ body {
     width: 100%;
 }
 .graphSelect {
-    margin-left: 61px;
-    
-    position: relative;
-    top: -1em;
     font-size: 2em;
     z-index: 999;
+    margin-left: 61px;
+    position: relative;
+    top: -1em;
 }
 .graphContaner {
     background: #efefef;
@@ -6913,7 +6912,7 @@ body {
 color: #fff */
     background: #444444;
     color: #fff;
-    font-size: 1.8em;
+    font-size: 2em;
     /*font-size: 20px;*/
 }
 .c-head {
@@ -6923,9 +6922,9 @@ font-size: 12px */
     background: #000000;
     font-weight: 700;
     color: #949494;
-    font-size: 1.8em;
+    font-size: 2em;
     /*max-width: 75px;*/
-    width: 72px;
+    1width: 72px;
     float: left;
     margin-top: 3px;
     margin-left: 1px;
@@ -6934,7 +6933,7 @@ font-size: 12px */
 }
 .d-head {
     font-weight: 700;
-    font-size: 1.8em;    color: #333;
+    font-size: 2em;    color: #333;
     padding-left: 5px
 }
 .float,
@@ -6942,7 +6941,7 @@ font-size: 12px */
 /*     font-family: Arial, Verdana, sans-serif;
 font-size: 15px */
     font-family: Arial, Verdana, sans-serif;
-    font-size: 1.8em;    padding: 2px;
+    font-size: 2em;    padding: 2px;
     color: #ffd740;
     font-weight: bolder;
     padding-top: 6.8px;
@@ -6986,7 +6985,9 @@ ul.tab li a {
     transition: 0.3s;
     font-size: 17px;
 }
-
+.tablinks{
+    font-size: 4em;
+}
 /* Change background color of links on hover */
 ul.tab li a:hover {background-color: #ddd;}
 
@@ -7051,15 +7052,15 @@ div[id*=KGU] .-graphContaner {
 }
 
 
-div[id*=KGU] #l1 .graphSelect {
+1div[id*=KGU] #l1 .graphSelect {
     top: 2px;
 }
 
-div[id*=KGU] #ch2_1modeselect, div[id*=KGU] #ch2_1periodselect, div[id*=KGU] #ch3_1modeselect, div[id*=KGU] #ch3_1periodselect {
+1div[id*=KGU] #ch2_1modeselect, div[id*=KGU] #ch2_1periodselect, div[id*=KGU] #ch3_1modeselect, div[id*=KGU] #ch3_1periodselect {
     left: -280px;
     margin-left: 0px;
 }
-div[id*=KGU] #ch2_2modeselect, div[id*=KGU] #ch2_2periodselect, div[id*=KGU] #ch3_2modeselect, div[id*=KGU] #ch3_2periodselect {
+1div[id*=KGU] #ch2_2modeselect, div[id*=KGU] #ch2_2periodselect, div[id*=KGU] #ch3_2modeselect, div[id*=KGU] #ch3_2periodselect {
     left: -25px;
     margin-left: 0px;
 }
@@ -7075,59 +7076,6 @@ div[id*=KGU] #l2_1 .graphContaner {
 div[id*=KGU] #l2 .graphSelect {
     top: 340px;
     left: 12%;
-}
-div[id*=KGU] .b-head {
-    background: #444444;
-    color: #fff;
-    font-size: 20px;
-}
-div[id*=KGU] .c-head {
-/*     background: #d8e5f2;
-font-weight: 700;
-font-size: 16px;
-max-width: 50px; */
-    /* background: #000000;
-    font-weight: 700;
-    color: #949494;
-    font-size: 17px;
-    max-width: 75px;
-    width: 75px;
-    position: absolute;
-    height: 30px;
-    margin-top: 1px; */
-        background: #000000;
-        font-weight: 700;
-        color: #949494;
-        font-size: 17px;
-        max-width: 75px;
-        width: 75px;
-        float: left;
-        margin-top: 3px;
-        margin-left: 1px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-
-}
-div[id*=KGU] .d-head {
-    font-weight: 700;
-    font-size: 14px;
-    color: #333;
-    padding-left: 5px
-}
-div[id*=KGU] .float,
-div[id*=KGU] .int {
-/*     font-family: Arial, Verdana, sans-serif;
-font-size: 20px;
-padding: 2px;
-color: #ffd740;
-font-weight: bolder; */
-    font-family: Arial, Verdana, sans-serif;
-    font-size: 20px;
-    padding: 2px;
-    color: #ffd740;
-    font-weight: bolder;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 div[id*=KGU] td,
 div[id*=KGU] th {

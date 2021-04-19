@@ -669,6 +669,118 @@ window.onload = function () {
         //            "position": "bottom-right"
         //        }
     });
+        chart2_1 = AmCharts.makeChart("chart2_1", {
+        "type": "serial",
+        "theme": "light",
+        "valueAxes": [
+            {
+                "maximum": NaN,
+                "minimum": NaN,
+                fontSize: 20
+
+            }
+            ,
+            {
+                "id": "p1",
+                "axisColor": "#FF6600",
+                "axisThickness": 2,
+                "axisAlpha": 1,
+                "titleFontSize": 10,
+                "position": "right"
+            }
+        ],
+
+        "legend": {
+            align: "right",
+            valueWidth: 0,
+            spacing: 0,
+            markerSize: 20,
+            fontSize: 20,
+            //            "useGraphSettings": true
+        },
+        "dataProvider": chartData2_1,
+        "graphs": graphs2_1[0],
+        //        "chartScrollbar": {},
+        "chartCursor": {
+            "cursorPosition": "mouse"
+        },
+        "valueScrollbar": {
+            "oppositeAxis": false,
+            "offset": 50,
+            "scrollbarHeight": 35
+        },
+        "categoryField": "time",
+        "categoryAxis": {
+            fontSize: 20,
+            autoGridCount: true,
+            gridCount: 3,
+            labelFrequency: 3,
+            equalSpacing: true,
+            "axisColor": "#DADADA",
+            "minorGridEnabled": false
+        },
+        //        "export": {
+        //            "enabled": true,
+        //            "position": "bottom-right"
+        //        }
+    });
+    chart2_2 = AmCharts.makeChart("chart2_2", {
+        "type": "serial",
+        "theme": "light",
+        "valueAxes": [
+            {
+
+                "maximum": NaN,
+                "minimum": NaN,
+                fontSize: 20
+
+            }
+            ,
+            {
+                "id": "p1",
+                "axisColor": "#FF6600",
+                "axisThickness": 2,
+                "axisAlpha": 1,
+                "titleFontSize": 10,
+                "position": "right"
+            }
+        ],
+
+        "legend": {
+            align: "right",
+            valueWidth: 0,
+            spacing: 0,
+            markerSize: 20,
+            fontSize: 20,
+            //            "useGraphSettings": true
+        },
+        "dataProvider": chartData2_2,
+        "graphs": graphs2_2[2],
+        //        "chartScrollbar": {},
+        "chartCursor": {
+            "cursorPosition": "mouse"
+        },
+        "valueScrollbar": {
+            "oppositeAxis": false,
+            "offset": 50,
+            "scrollbarHeight": 35
+        },
+        "categoryField": "time",
+        "categoryAxis": {
+            fontSize: 20,
+            autoGridCount: true,
+            gridCount: 3,
+            labelFrequency: 3,
+            equalSpacing: true,
+            "axisColor": "#DADADA",
+            "minorGridEnabled": false
+        },
+        //        "export": {
+        //            "enabled": true,
+        //            "position": "bottom-right"
+        //        }
+    });
+
     chart3 = AmCharts.makeChart("chart3", {
         //        automarginlegend:"false",
         "type": "serial",

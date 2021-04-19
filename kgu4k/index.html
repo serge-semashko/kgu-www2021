@@ -31,10 +31,12 @@
 <body>
 
 <div style="position: fixed;left: 0;top: 0;width: 100%;height: 5%">
-    <ul class="tab" style="float: left;">
-        <li><a href="javascript:void(0)" class="tablinks" onclick="openScr(event, 'All')" id="defaultOpen">КГУ-1 и
-            КГУ-2</a></li>
-        <li><a href="javascript:void(0)" class="tablinks" onclick="debugger;openScr(event, 'BOOSTER')">Измерительный период</a>
+    <ul class="tab" style="font-size:2em;float: left;">
+        <li style="font-size: 40px" ><a href="javascript:void(0)"  class="tablinks" onclick="openScr(event, 'All')" id="defaultOpen">КГУ-1 и КГУ-2</a></li>
+        <li style="font-size: 40px" ><a href="javascript:void(0)" class="tablinks" onclick="openScr(event, 'KGU1')">КГУ1</a></li>
+        <li style="font-size: 40px" ><a href="javascript:void(0)" class="tablinks" onclick="openScr(event, 'KGU2')">КГУ2</a></li>
+
+        <li style="font-size: 40px" ><a href="javascript:void(0)" class="tablinks" onclick="debugger;openScr(event, 'BOOSTER')">Измерительный период</a>
         </li>
     </ul>
     <h1 style="color: #444444; padding-left: 100px; float: left; margin: 0 0 0 0; font-size: 30px">Криогенный комплекс
@@ -200,7 +202,7 @@
                 </tr>
             </table>
             <table class="booster-table" border="1">
-                <tr>
+<!--                 <tr>
 
                     <td>
                         <div class="b-head">Прибор/канал</div>
@@ -209,9 +211,9 @@
                         <div class="b-head">Значение</div>
                     </td>
                 </tr>
-                <tr>
-                    <td class="b-head" colspan="4">Гамма -100</td>
-                </tr>
+ -->                <!-- <tr> -->
+                    <!-- <td class="b-head" colspan="4">Гамма -100</td> -->
+                <!-- </tr> -->
 
                 <tr>
                     <td>
@@ -242,7 +244,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="c-head"> канал&nbsp1 </div>
+                        <div class="c-head"> канал 1 </div>
                     </td>
                     <td>
                         <div class="float" data-idb="Vlagomer_ch1_par2">...</div>
@@ -425,7 +427,7 @@
                 </tr>
             </table>
             <table class="booster-table" border="1">
-                <tr>
+<!--                 <tr>
 
                     <td>
                         <div class="b-head">Прибор/канал</div>
@@ -437,7 +439,7 @@
                 <tr>
                     <td class="b-head" colspan="4">Гамма -100</td>
                 </tr>
-
+ -->
                 <tr>
                     <td>
                         <div class="c-head">Gamma100&nbsp1&nbspканал&nbsp1</div>
@@ -467,7 +469,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="c-head"> канал&nbsp1 </div>
+                        <div class="c-head"> канал 1 </div>
                     </td>
                     <td>
                         <div class="float" data-idb="Vlagomer_ch1_par2">...</div>
@@ -510,7 +512,7 @@
 
 <div id="BOOSTER" class="tabcontent">
     <div id="l1" class="dlines">
-        <div class="tablesContaner">
+        <div class="one_third" style="width: 35%">
             <table class="booster-table" border="1">
                 <tr>
                     <td>
@@ -668,6 +670,194 @@
                 </tr>
 
             </table>
+        </div>
+    </div>
+</div>
+<div id="KGU1" class="tabcontent">
+    <div id="l1" class="dlines">
+        <div class="tablesContaner"><!-- <span class="d-head">КГУ-1 - Текущие данные</span> -->
+            <table class="data-table" border="1">
+                <tr>
+                    <td class="b-head" colspan="4">Обороты</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="c-head">ТД1</div>
+                        <div class="int" data-id="45">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">ТД2</div>
+                        <div class="int" data-id="46">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">ТД3</div>
+                        <div class="int" data-id="47">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">ПЖ</div>
+                        <div class="int" data-id="51">...</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="b-head" colspan="4">Уровни</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="c-head">Сборник</div>
+                        <div class="float" data-id="35">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Ванна</div>
+                        <div class="float" data-id="36">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">БО1</div>
+                        <div class="float" data-id="32">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">БО2</div>
+                        <div class="float" data-id="33">...</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="b-head" colspan="4">Температуры</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="c-head">Т1</div>
+                        <div class="float" data-id="5">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т5</div>
+                        <div class="float" data-id="11">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т9</div>
+                        <div class="float" data-id="23">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т13</div>
+                        <div class="float" data-id="111">...</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="c-head">Т2</div>
+                        <div class="float" data-id="7">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т6</div>
+                        <div class="float" data-id="12">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т10</div>
+                        <div class="float" data-id="24">...</div>
+                    </td>
+                        <td><div class="c-head">Т14</div><div class="float" data-id="31">...</div></td>                        
+                </tr>
+                <tr>
+                    <td>
+                        <div class="c-head">Т3</div>
+                        <div class="float" data-id="9">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т7</div>
+                        <div class="float" data-id="26">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т11</div>
+                        <div class="float" data-id="28">...</div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="c-head">Т4</div>
+                        <div class="float" data-id="10">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т8</div>
+                        <div class="float" data-id="27">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т12</div>
+                        <div class="float" data-id="29">...</div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="b-head" colspan="4">Температуры на БО1</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="c-head">Т181</div>
+                        <div class="float" data-id="14">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т191</div>
+                        <div class="float" data-id="15">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т201</div>
+                        <div class="float" data-id="16">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т211</div>
+                        <div class="float" data-id="17">...</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="b-head" colspan="4">Температуры на БО2</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="c-head">Т182</div>
+                        <div class="float" data-id="18">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т192</div>
+                        <div class="float" data-id="19">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т202</div>
+                        <div class="float" data-id="20">...</div>
+                    </td>
+                    <td>
+                        <div class="c-head">Т212</div>
+                        <div class="float" data-id="21">...</div>
+                    </td>
+                </tr>
+            </table>
+            <div id="l2_1" style="margin: 1px;width: 115%;">
+                <select class="graphSelect" name="" id="ch2_1modeselect" OnChange='ch2_1modechange()'>
+                    <option value="kgu1s" selected="selected">КГУ1 - Пусковой режим</option>
+                    <option value="kgu1w">КГУ1 - Рабочий режим</option>
+                    <option value="kgu1l">КГУ1 - Уровни</option>
+                    <option value="kgu12l">Уровни КГУ1-КГУ2 (%)</option>
+                </select>
+                <select class="graphSelect" name="" id="ch2_1periodselect" OnChange='ch2_1periodchange()'>
+                    <option value="online">onLine</option>
+                    <option value="1h">1ч.</option>
+                    <option value="6h" selected="selected">6ч.</option>
+                    <option value="24h">24ч.</option>
+                </select>
+                <div id="chart2_1" class="graphContaner"></div>
+
+                <select class="graphSelect" name="" id="ch2_2modeselect" OnChange='ch2_2modechange()'>
+                    <option value="kgu1s">КГУ1 - Пусковой режим</option>
+                    <option value="kgu1w">КГУ1 - Рабочий режим</option>
+                    <option value="kgu1l" selected="selected">КГУ1 - Уровни</option>
+                    <option value="kgu12l">Уровни КГУ1-КГУ2 (%)</option>
+                </select>
+                <select class="graphSelect" name="" id="ch2_2periodselect" OnChange='ch2_2periodchange()'>
+                    <option value="online">onLine</option>
+                    <option value="1h">1ч.</option>
+                    <option value="6h" selected="selected">6ч.</option>
+                    <option value="24h">24ч.</option>
+                </select>
+                <div  id="chart2_2" class="graphContaner"></div>
+            </div>
+            <div id="l2_2"></div>
         </div>
     </div>
 </div>
