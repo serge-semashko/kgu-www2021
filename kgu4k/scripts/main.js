@@ -344,10 +344,6 @@ function processFullData(fullData) {   //                        console.log('\n
 
     appendData("ch2periodselect", chart2, chartData2, newDatam2);
     appendData("ch3periodselect", chart3, chartData3, newDatam2);
-    appendData("ch2_1periodselect", chart2_1, chartData2_1, newDatam2);
-    appendData("ch2_2periodselect", chart2_2, chartData2_2, newDatam2);
-    appendData("ch3_1periodselect", chart3_1, chartData3_1, newDatam2);
-    appendData("ch3_2periodselect", chart3_2, chartData3_2, newDatam2);
     var deltime = (newtime - starttime);
 //    if ((newtime - starttime) < 30000)
 //        return;
@@ -450,28 +446,6 @@ function getAllData() {
         });
 
 
-//     $.ajax({
-//         type: "GET",
-// //        dataType: "json",
-//         url: "JSON_last_data.dat",
-//         data: {
-//             "get_member": "id"
-//         },
-//         success: function (t) {
-//             t = t.replace(/NaN/gi,'"none"');
-//             console.log("\n+++++INsat AJAX  OK    :" + t);
-//             t=JSON.parse(t);
-//             processInsatData(t);
-//         },
-//         error: function (error) {
-//             console.log("\n####INsat AJAX  error:" + JSON.stringify(error));
-//         }
-//     })
-
-    //                        //console.log('\n step chart 4 1\n');
-
-
-    //                        //console.log('\n step chart 4 1\n');
 
 
 }
@@ -638,15 +612,16 @@ window.onload = function () {
         "type": "serial",
         "theme": "light",
         "legend": {
-            align: "left",
+            align: "right",
             valueWidth: 0,
             spacing: 0,
-            markerSize: 10,
-            fontSize: 12,
             marginBottom: 0,
             marginLeft: 51,
             marginRight: 0,
-            position: "right"
+            markerSize:25,
+            fontSize: 20,
+            position: "top"
+
 
 //            "useGraphSettings": true
         },
@@ -666,6 +641,7 @@ window.onload = function () {
                 "maximum": NaN,
                 "minimum": NaN,
                 "axisColor": "#FF6600",
+                fontSize: 20
             },
             {
                 "id": "p1",
@@ -680,112 +656,11 @@ window.onload = function () {
         ],
         "categoryField": "time",
         "categoryAxis": {
+            fontSize: 20,
             autoGridCount: true,
-            gridCount: 6,
-            labelFrequency: 1,
-            equalSpacing: true,
-            "axisColor": "#DADADA",
-            "minorGridEnabled": false
-        },
-        //        "export": {
-        //            "enabled": true,
-        //            "position": "bottom-right"
-        //        }
-    });
-    chart2_1 = AmCharts.makeChart("chart2_1", {
-        "type": "serial",
-        "theme": "light",
-        "valueAxes": [
-            {
-                "maximum": NaN,
-                "minimum": NaN,
-            }
-            ,
-            {
-                "id": "p1",
-                "axisColor": "#FF6600",
-                "axisThickness": 2,
-                "axisAlpha": 1,
-                "titleFontSize": 10,
-                "position": "right"
-            }
-        ],
-
-        "legend": {
-            align: "right",
-            valueWidth: 0,
-            spacing: 10,
-            markerSize: 14,
-            fontSize: 12,
-            //            "useGraphSettings": true
-        },
-        "dataProvider": chartData2_1,
-        "graphs": graphs2_1[0],
-        //        "chartScrollbar": {},
-        "chartCursor": {
-            "cursorPosition": "mouse"
-        },
-        "valueScrollbar": {
-            "oppositeAxis": false,
-            "offset": 50,
-            "scrollbarHeight": 35
-        },
-        "categoryField": "time",
-        "categoryAxis": {
-            gridCount: 6,
-            labelFrequency: 1,
-            equalSpacing: true,
-            "axisColor": "#DADADA",
-            "minorGridEnabled": false
-        },
-        //        "export": {
-        //            "enabled": true,
-        //            "position": "bottom-right"
-        //        }
-    });
-    chart2_2 = AmCharts.makeChart("chart2_2", {
-        "type": "serial",
-        "theme": "light",
-        "valueAxes": [
-            {
-                "maximum": NaN,
-                "minimum": NaN,
-            }
-            ,
-            {
-                "id": "p1",
-                "axisColor": "#FF6600",
-                "axisThickness": 2,
-                "axisAlpha": 1,
-                "titleFontSize": 10,
-                "position": "right"
-            }
-        ],
-
-        "legend": {
-            align: "right",
-            valueWidth: 0,
-            spacing: 10,
-            markerSize: 14,
-            fontSize: 12,
-            //            "useGraphSettings": true
-        },
-        "dataProvider": chartData2_2,
-        "graphs": graphs2_2[2],
-        //        "chartScrollbar": {},
-        "chartCursor": {
-            "cursorPosition": "mouse"
-        },
-        "valueScrollbar": {
-            "oppositeAxis": false,
-            "offset": 50,
-            "scrollbarHeight": 35
-        },
-        "categoryField": "time",
-        "categoryAxis": {
-            gridCount: 6,
-            labelFrequency: 1,
-            equalSpacing: true,
+            gridCount: 3,
+            labelFrequency: 3,
+            equalSpacing: false,
             "axisColor": "#DADADA",
             "minorGridEnabled": false
         },
@@ -802,16 +677,17 @@ window.onload = function () {
             {
                 "maximum": NaN,
                 "minimum": NaN,
+                fontSize: 20
             }
         ],
 
         "legend": {
             align: "right",
             valueWidth: 0,
-            spacing: 10,
-            markerSize: 14,
-            fontSize: 12,
-            position: "right"
+            spacing: 0,
+            markerSize:25,
+            fontSize: 20,
+            position: "top"
 
             //            "useGraphSettings": true
         },
@@ -828,95 +704,11 @@ window.onload = function () {
         },
         "categoryField": "time",
         "categoryAxis": {
-            gridCount: 5,
-            labelFrequency: 1,
-            equalSpacing: true,
-            "axisColor": "#DADADA",
-            "minorGridEnabled": false
-        },
-        //        "export": {
-        //            "enabled": true,
-        //            "position": "bottom-right"
-        //        }
-    });
-    chart3_1 = AmCharts.makeChart("chart3_1", {
-        //        automarginlegend:"false",
-        "type": "serial",
-        "theme": "light",
-        "valueAxes": [
-            {
-                "maximum": NaN,
-                "minimum": NaN,
-            }
-        ],
-
-        "legend": {
-            align: "right",
-            valueWidth: 0,
-            spacing: 10,
-            markerSize: 14,
-            fontSize: 12,
-            //            "useGraphSettings": true
-        },
-        "dataProvider": chartData3_1,
-        "graphs": graphs3_1[0],
-        //        "chartScrollbar": {},
-        "chartCursor": {
-            "cursorPosition": "mouse"
-        },
-        "valueScrollbar": {
-            "oppositeAxis": false,
-            "offset": 50,
-            "scrollbarHeight": 35
-        },
-        "categoryField": "time",
-        "categoryAxis": {
-            gridCount: 5,
-            labelFrequency: 1,
-            equalSpacing: true,
-            "axisColor": "#DADADA",
-            "minorGridEnabled": false
-        },
-        //        "export": {
-        //            "enabled": true,
-        //            "position": "bottom-right"
-        //        }
-    });
-    chart3_2 = AmCharts.makeChart("chart3_2", {
-        //        automarginlegend:"false",
-        "type": "serial",
-        "theme": "light",
-        "valueAxes": [
-            {
-                "maximum": NaN,
-                "minimum": NaN,
-            }
-        ],
-
-        "legend": {
-            align: "right",
-            valueWidth: 0,
-            spacing: 10,
-            markerSize: 14,
-            fontSize: 12,
-            //            "useGraphSettings": true
-        },
-        "dataProvider": chartData3_2,
-        "graphs": graphs3_2[2],
-        //        "chartScrollbar": {},
-        "chartCursor": {
-            "cursorPosition": "mouse"
-        },
-        "valueScrollbar": {
-            "oppositeAxis": false,
-            "offset": 50,
-            "scrollbarHeight": 35
-        },
-        "categoryField": "time",
-        "categoryAxis": {
-            gridCount: 5,
-            labelFrequency: 1,
-            equalSpacing: true,
+            fontSize: 20,
+            autoGridCount: true,
+            gridCount: 3,
+            labelFrequency: 3,
+            equalSpacing: false,
             "axisColor": "#DADADA",
             "minorGridEnabled": false
         },
@@ -927,23 +719,11 @@ window.onload = function () {
     });
     setModePeriod("2");
     setModePeriod("3");
-    setModePeriod("3_1");
-    setModePeriod("3_2");
-    setModePeriod("2_1");
-    setModePeriod("2_2");
-
+    
     ch3periodchange();
     ch2periodchange();
-    ch3_1periodchange();
-    ch2_1periodchange();
-    ch3_2periodchange();
-    ch2_2periodchange();
     ch3modechange();
     ch2modechange();
-    ch3_1modechange();
-    ch2_1modechange();
-    ch3_2modechange();
-    ch2_2modechange();
     //document.getElementById('ch2periodselect').options.selectedIndex = 0;
     getAllData();
     setInterval(getAllData, 1000);

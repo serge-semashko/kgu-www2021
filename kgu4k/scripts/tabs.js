@@ -1,5 +1,4 @@
 function openScr(evt, scrName) {
-    debugger;
     // Declare all variables
     var i, tabcontent, tablinks;
     // Get all elements with class="tabcontent" and hide them
@@ -16,7 +15,6 @@ function openScr(evt, scrName) {
 
     // Show the current tab, and add an "active" class to the link that opened the tab
     aa = document.getElementById(scrName);
-    debugger;
     aa.style.display = "block";
     evt.currentTarget.className += " active";
 }

@@ -344,10 +344,6 @@ function processFullData(fullData) {   //                        console.log('\n
 
     appendData("ch2periodselect", chart2, chartData2, newDatam2);
     appendData("ch3periodselect", chart3, chartData3, newDatam2);
-    appendData("ch2_1periodselect", chart2_1, chartData2_1, newDatam2);
-    appendData("ch2_2periodselect", chart2_2, chartData2_2, newDatam2);
-    appendData("ch3_1periodselect", chart3_1, chartData3_1, newDatam2);
-    appendData("ch3_2periodselect", chart3_2, chartData3_2, newDatam2);
     var deltime = (newtime - starttime);
 //    if ((newtime - starttime) < 30000)
 //        return;
@@ -449,29 +445,6 @@ function getAllData() {
             console.log('Fetch Error fullddata :-S', err);
         });
 
-
-//     $.ajax({
-//         type: "GET",
-// //        dataType: "json",
-//         url: "JSON_last_data.dat",
-//         data: {
-//             "get_member": "id"
-//         },
-//         success: function (t) {
-//             t = t.replace(/NaN/gi,'"none"');
-//             console.log("\n+++++INsat AJAX  OK    :" + t);
-//             t=JSON.parse(t);
-//             processInsatData(t);
-//         },
-//         error: function (error) {
-//             console.log("\n####INsat AJAX  error:" + JSON.stringify(error));
-//         }
-//     })
-
-    //                        //console.log('\n step chart 4 1\n');
-
-
-    //                        //console.log('\n step chart 4 1\n');
 
 
 }

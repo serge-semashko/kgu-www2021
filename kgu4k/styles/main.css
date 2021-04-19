@@ -6896,8 +6896,11 @@ body {
 }
 .graphSelect {
     margin-left: 61px;
+    
     position: relative;
-    top: 1px;
+    top: -1em;
+    font-size: 2em;
+    z-index: 999;
 }
 .graphContaner {
     background: #efefef;
