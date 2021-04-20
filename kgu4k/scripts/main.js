@@ -324,9 +324,23 @@ function processData(t) {
 
     $.each($(".data-table").find("div.int"), function () {
         var o = $(this).data("id");
+        if (typeof o == NaN) {
+            return;
+        }
+        if (typeof o == "undefined") {
+            return;
+        }
+
         $(this).html(r[o])
     }), $.each($(".data-table").find("div.float"), function () {
         var o = $(this).data("id");
+        if (typeof o == NaN) {
+            return;
+        }
+        if (typeof o == "undefined") {
+            return;
+        }
+        
         $(this).html(r[o])
         $(this).html(parseFloat(r[o]).toFixed(1))
     });
